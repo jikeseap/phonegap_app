@@ -61,6 +61,5 @@
     <author email="jikes@sch.gr">
         Apostolis Mamaras
     </author>
-    <content src="index.html" />
     <access origin="*" />
 </widget>
