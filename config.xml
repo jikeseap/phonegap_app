@@ -1,35 +1,38 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.sdy61_mamaras_3erg.com" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <preference name="loglevel" value="DEBUG" />
-    <preference name="AndroidLaunchMode" value="singleTop" />
-    <feature name="App">
-        <param name="android-package" value="org.apache.cordova.App" />
-    </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    </feature>
-    <feature name="Contacts">
-        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
-    </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
-    <feature name="Compass">
-        <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
-    </feature>
-    <feature name="Notification">
-        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
-    </feature>
-    <feature name="NetworkStatus">
-        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
-    </feature>
     <name>sdy61_mamaras_3erg</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        SDY61 3 ergasia 2015
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="jikes@sch.gr">
+        Apostolis Mamaras
     </author>
+    
+     <preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
+     <preference name="target-device" value="universal" /> <!-- all: possible values handset, tablet, or universal -->
+     <preference name="phonegap-version" value="3.5.0" /> <!--Define a specific version of PhoneGap to build into your app. -->
+     
+      <!-- Plugins -->
+<!-- Core plugins -->
+<gap:plugin name="org.apache.cordova.battery-status" />
+<gap:plugin name="org.apache.cordova.camera" />
+<gap:plugin name="org.apache.cordova.media-capture" />
+<gap:plugin name="org.apache.cordova.console" />
+<gap:plugin name="org.apache.cordova.contacts" />
+<gap:plugin name="org.apache.cordova.device" />
+<gap:plugin name="org.apache.cordova.device-motion" />
+<gap:plugin name="org.apache.cordova.device-orientation" />
+<gap:plugin name="org.apache.cordova.dialogs" />
+<gap:plugin name="org.apache.cordova.file" />
+<gap:plugin name="org.apache.cordova.file-transfer" />
+<gap:plugin name="org.apache.cordova.geolocation" />
+<gap:plugin name="org.apache.cordova.globalization" />
+<gap:plugin name="org.apache.cordova.inappbrowser" />
+<gap:plugin name="org.apache.cordova.media" />
+<gap:plugin name="org.apache.cordova.network-information" />
+<gap:plugin name="org.apache.cordova.splashscreen" />
+<gap:plugin name="org.apache.cordova.vibration" />
+
     <content src="index.html" />
     <access origin="*" />
 </widget>
