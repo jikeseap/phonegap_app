@@ -49,5 +49,6 @@ permission on your app, which PhoneGap requires.
 <gap:plugin name="org.apache.cordova.splashscreen" />
 <gap:plugin name="org.apache.cordova.vibration" />
 
+ <content src="index.html" />
  <access origin="*"/>
 </widget>
