@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mamaras3erg.com" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <preference name="loglevel" value="DEBUG" />
+<widget id="com.mamaras3erg.com" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns = "http://www.w3.org/ns/widgets" xmlns:gap = "http://phonegap.com/ns/1.0" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+	<preference name="loglevel" value="DEBUG" />
     <preference name="AndroidLaunchMode" value="singleTop" />
+    <preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
+    <preference name="target-device" value="universal" /> <!-- all: possible values handset, tablet, or universal -->
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
@@ -62,8 +64,7 @@
         Apostolis Mamaras
     </author>
     
-    <preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
-    <preference name="target-device" value="universal" /> <!-- all: possible values handset, tablet, or universal -->
+    
     <content src="index.html" />
     <access origin="*" />
 </widget>
