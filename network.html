@@ -11,9 +11,6 @@
 		<meta name="description" content="">
 		<meta name="author" content="Apostolis Mamaras">
 		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-		<script type="text/javascript" charset="utf-8" src="cordova_plugins.js"></script>
-		<script type="text/javascript" charset="utf-8" src="Connection.js"></script>
-		<script type="text/javascript" charset="utf-8" src="network.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		
 		// Wait for PhoneGap to load
@@ -23,7 +20,7 @@
     }
     
    
-//	var myVar = setInterval(function () {checkConnection();}, 100);
+	var myVar = setInterval(function () {checkConnection();}, 1000);
     function checkConnection() {
         var networkState = navigator.connection.type;
         var states = {};
@@ -34,7 +31,7 @@
         states[Connection.CELL_3G]  = 'Cell 3G connection';
         states[Connection.CELL_4G]  = 'Cell 4G connection';
         states[Connection.NONE]     = 'No network connection';
-      //  alert('Connection type: ' + states[networkState]);
+       // alert('Connection type: ' + states[networkState]);
      
        
         	if((states[networkState] == "No network connection") || (states[networkState] == "Unknown connection")){
@@ -45,7 +42,7 @@
         {
         	//<meta http-equiv="refresh" content="3; url=network.html">
         	alert('Connection type: ' + states[networkState]);
-        	window.setInterval(function(){(window.location="contacts.html");}, 300);
+        	window.location="contacts.html";
         	
         }
     }
