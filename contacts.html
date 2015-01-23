@@ -9,60 +9,57 @@
 		 <script type="text/javascript" charset="utf-8">
 
 		// Wait for PhoneGap to load
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // PhoneGap is ready
-    //
-    function onDeviceReady() {
-        // create a new contact
-        var contact = navigator.contacts.create();
-
-        // store contact phone numbers in ContactField[]
-        var phoneNumbers = [];
-        phoneNumbers[0] = new ContactField('work', '212-555-1234', false);
-        phoneNumbers[1] = new ContactField('mobile', '917-555-5432', true); // preferred number
-        phoneNumbers[2] = new ContactField('home', '203-555-7890', false);
-        contact.phoneNumbers = phoneNumbers;
-
-        // save the contact
-        contact.save();
-
-        // search contacts, returning display name and phone numbers
-        var options = new ContactFindOptions();
-        options.filter="";
-        filter = ["displayName","phoneNumbers"];
-        navigator.contacts.find(filter, onSuccess, onError, options);
-    }
-
-    // onSuccess: Get a snapshot of the current contacts
-    //
-    function onSuccess(contacts) {
-        for (var i=0; i<contacts.length; i++) {
-             
-            for (var j=0; j<contacts[i].phoneNumbers.length; j++) {
-                alert("Type: " + contacts[i].phoneNumbers[j].type + "\n" + 
-                        "Value: "  + contacts[i].phoneNumbers[j].value + "\n" + 
-                        "Preferred: "  + contacts[i].phoneNumbers[j].pref);
-            }
+		
+		function init()
+		{
+			document.addEventListener("deviceready", startup);
+			
+		}
+    
+    
+    function startup() {
+		document.getElementById("searchButton").addEventListener("click", handleSearch());
         }
-    };
+
+    
+    function handleSearch(e) {
+        var search = document.getElementById("name").value;
+        //what parts of the contact we will search
+        var fields = ["displayName", "name"];
+        //options for the search
+        var options = new ContactFindOptions();
+        options.filter = search;
+        options.multiple = true;
+        document.getElementById("results").innerHTML="Searching....";
+        navigator.contacts.find(fields, contactSuccess, contactError, options);
+    }
 
     // onError: Failed to get the contacts
     //
-    function onError(contactError) {
-        alert('onError!');
+    function contactError(e) {
+        document.getElementById("results").innerHTML="";
+        navigator.notification.alert("Sorry, an error was thrown");
+    }
+    
+    function contactSuccess(results){
+    	//no max, so we will default to only 10
+    	var s = "";
+    	for(var i =0; i<Math.min(10, results.length); i++){
+    		s +="<p>"+results[i].displayName+"</p>";
+    	}
+    	document.getElementById("results").innerHTML=s;
     }
 
     </script>
 
 	</head>
 
-	<body>
+	<body onload="init ()">
+		<h1> Contact Search</h1>
 		<form>
-		<label for="name">Name</label><br/>
-		<input type="text" id="first"/><br/>
-		<br> <br/>
-		<input type="button" value="Search Contact" id="btnSearch"/>	
+		<input type="text" id="name"/><br/>
+		<input type="button" id="btnSearch" value="Search Contact">
+		<div id="results"></div>	
 		</form>
 	</body>
 </html>
