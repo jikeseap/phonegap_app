@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<<<<<<< HEAD
 <widget id="com.mamaras3erg.com" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 <name>SDY 61 3 ergasia</name>
+=======
+<widget id="com.mamaras3erg.com" version="1.0.0" xmlns="http://www.w3.org/ns/widgets"  xmlns:gap="http://phonegap.com/ns/1.0" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<name>SDY 61 3 ergagia</name>
+>>>>>>> origin/master
 <description>
 SDY61 Mamaras 3 ergasia
 </description>
 <author email="jikes@sch.gr">
+<<<<<<< HEAD
 Apostolis Mamaras
+=======
+Apostolis Mamaras 
+>>>>>>> origin/master
 </author>
 <!--
 If you do not want any permissions to be added to your app, add the
@@ -17,7 +26,11 @@ permission on your app, which PhoneGap requires.
 <!-- Customize your app and platform with the preference element. -->
 <preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
 <preference name="target-device" value="universal" /> <!-- all: possible values handset, tablet, or universal -->
+<<<<<<< HEAD
 <!--<preference name="fullscreen" value="true" /> <!-- all: hides the status bar at the top of the screen -->
+=======
+<preference name="fullscreen" value="true" /> <!-- all: hides the status bar at the top of the screen -->
+>>>>>>> origin/master
 <preference name="webviewbounce" value="true" /> <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
 <preference name="prerendered-icon" value="true" /> <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
 <preference name="stay-in-webview" value="false" /> <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
@@ -32,6 +45,10 @@ permission on your app, which PhoneGap requires.
 <!--
 Define a specific version of PhoneGap to build into your app.-->
 <preference name="phonegap-version" value="3.5.0" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 <!-- Plugins -->
 <!-- Core plugins -->
 <gap:plugin name="org.apache.cordova.battery-status" />
@@ -57,6 +74,11 @@ Define a specific version of PhoneGap to build into your app.-->
 <!--
 <gap:plugin name="com.phonegap.plugins.barcodescanner" />
 -->
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
 <!--
 Define access to external domains.
 <access /> - a blank access tag denies access to all external resources.
