@@ -38,10 +38,13 @@
     // onSuccess: Get a snapshot of the current contacts
     //
     function onSuccess(contacts) {
-        for (var i=0; i<contacts.length; i++) {
-            alert(contacts[i].displayName);
-        }
-    };
+       //no max, so we will default to only 10
+    	var s = "";
+    	for(var i =0; i<Math.min(10, results.length); i++){
+    		s +="<p>"+results[i].displayName+"</p>";
+    	}
+    	document.getElementById("results").innerHTML=s;
+    }
 
     // onError: Failed to get the contacts
     //
