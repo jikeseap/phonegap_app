@@ -20,14 +20,19 @@
     
     
      function handleSearch(e) {
-       // specify contact search criteria
-        var options = new ContactFindOptions();
-        options.filter = "";      // empty search string returns all contacts
-        options.multiple = true;  // return multiple results
-        filter = ["displayName"]; // return contact.displayName field
-
-        // find contacts
-        navigator.contacts.find(filter, onSuccess, onError, options);
+       var search = document.getElementById("name").value;
+			contact_name = search;
+			//Search only displayName
+			var fields = ["displayName"];
+			//Options for the search
+			var options = new ContactFindOptions();
+			options.filter = search;
+			//return, if found, only one contact
+			options.multiple = true;
+			//Display feedback to user when searching for contact
+			document.getElementById("results").innerHTML="<p>Searching contacts...</p>";
+			//Try searching contacts with above options
+			navigator.contacts.find(fields, onSuccess, onError, options);
     }
 
     // onSuccess: Get a snapshot of the current contacts
