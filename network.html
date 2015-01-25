@@ -20,7 +20,7 @@
     }
     
    
-	var myVar = setInterval(function () {checkConnection();}, 1000);
+	var myVar = setInterval(function () {checkConnection();});
     function checkConnection() {
         var networkState = navigator.connection.type;
         var states = {};
@@ -42,7 +42,7 @@
         {
         	//<meta http-equiv="refresh" content="3; url=network.html">
         	alert('Connection type: ' + states[networkState]);
-        	window.location="contacts.html";
+        	window.location="contact.html";
         	
         }
     }
