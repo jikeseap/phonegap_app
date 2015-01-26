@@ -28,7 +28,7 @@
 			var options = new ContactFindOptions();
 			options.filter = search;
 			//return, if found, only one contact
-			options.multiple = true;
+			options.multiple = false;
 			//Display feedback to user when searching for contact
 			document.getElementById("results").innerHTML="<p>Searching contacts...</p>";
 			//Try searching contacts with above options
