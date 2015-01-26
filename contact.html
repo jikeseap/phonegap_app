@@ -1,63 +1,46 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Contact Example</title>
-
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
-
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-    	window.localStorage.clear();
-    	document.getElementById("searchButton").addEventListener("click", handleSearch);
-        
-    }
-    
-    
-     function handleSearch(e) {
-       var search = document.getElementById("name").value;
-			contact_name = search;
-			//Search only displayName
-			var fields = ["displayName"];
-			//Options for the search
-			var options = new ContactFindOptions();
-			options.filter = search;
-			//return, if found, only one contact
-			options.multiple = false;
-			//Display feedback to user when searching for contact
-			document.getElementById("results").innerHTML="<p>Searching contacts...</p>";
-			//Try searching contacts with above options
-			navigator.contacts.find(fields, onSuccess, onError, options);
-    }
-
-    // onSuccess: Get a snapshot of the current contacts
-    //
-    function onSuccess(contacts) {
-       for (var i = 0; i < contacts.length; i++) {
-            alert("Display Name = " + contacts[i].displayName);
-        }
-    }
-
-    // onError: Failed to get the contacts
-    //
-    function onError(contactError) {
-        alert('onError!');
-    }
-
-    </script>
-  </head>
-  <body>
-    <h1> Contact Search</h1>
-		<form>
-		<input type="text" id="name"/><br/>
-		<input type="button" id="btnSearch" value="Search Contact">
-		<div id="results"></div>	
-		</form>
-  </body>
+<!DOCTYPE HTML>
+ <html>
+ 	 <head>
+ 	 	 <meta name="viewport" content="width=320; user-scalable=no" />
+ 	 	  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+ 	 	   <title>Apostolis Mamaras</title> 
+ 	 	   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+ 	 	   <script> 
+ 	 	   function init(){ document.addEventListener("deviceready", startup); } 
+ 	 	   
+ 	 	   function startup(){ document.getElementById("searchButton").addEventListener("click", handleSearch); } 
+ 	 	   
+ 	 	   function handleSearch(e){
+ 	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search 
+ 	 	   	 var fields = ["displayName", "name"]; //Options for the search 
+ 	 	   	 var options = new ContactFindOptions(); 
+ 	 	   	 options.filter = search; 
+ 	 	   	 options.multiple = true; 
+ 	 	   	 document.getElementById("results").innerHTML="Searching..."; 
+ 	 	   	 navigator.contacts.find(fields, contactSuccess, contactError, options); 
+ 	 	   	 } 
+ 	 	   	 
+ 	 	   	 function contactError(e){ 
+ 	 	   	 	document.getElementById("results").innerHTML=""; 
+ 	 	   	 	navigator.notification.alert("Sorry, an error was thrown!"); 
+ 	 	   	 	} 
+ 	 	   	 	
+ 	 	   	 	function contactSuccess(results){
+ 	 	   	 		 //No max, so we will default to only 10 
+ 	 	   	 		 var s = ""; 
+ 	 	   	 		 for (var i = 0; i < Math.min(10, results.length); i++) {
+ 	 	   	 		 	 s += "<p>"+results[i].displayName+"</p>"; 
+ 	 	   	 		 	 } 
+ 	 	   	 		 	 document.getElementById("results").innerHTML=s; 
+ 	 	   	 		 	 } 
+ 	 	 </script> 
+ 	 	 </head> 
+ 	 	 <body onload="init()"> 
+ 	 	 	<h1>Contact Search</h1> 
+ 	 	 	<form> 
+ 	 	 		<input type="text" id="name"><br/> 
+ 	 	 		<input type="button" id="searchButton" value="Search"> 
+ 	 	 		<div id="results"></div> 
+ 	 	 		</form>
+ 	 	 </body> 
 </html>
-
