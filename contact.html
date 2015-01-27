@@ -30,6 +30,9 @@
  	 	   	 		 var s = ""; 
  	 	   	 		 for (var i = 0; i < Math.min(10, results.length); i++) {
  	 	   	 		 	 s += "<p>"+results[i].displayName+ " " + results[i].phoneNumbers+"</p>"; 
+ 	 	   	 		 	 for (var i = 0; i < Math.min(10, results.length); i++) {
+ 	 	   	 		 	 s += "<p>"+results[i].phoneNumbers+"</p>";
+ 	 	   	 		 	 }
  	 	   	 		 	 } 
  	 	   	 		 	 document.getElementById("results").innerHTML=s; 
  	 	   	 		 	 } 
