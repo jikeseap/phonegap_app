@@ -28,11 +28,8 @@
  	 	   	 	function contactSuccess(results){
  	 	   	 		 //No max, so we will default to only 10 
  	 	   	 		 var s = ""; 
- 	 	   	 		 for (var i = 0; i < Math.min(10, results.length); i++) {
- 	 	   	 		 	 s += "<p>"+results[i].displayName+ " " + results[i].phoneNumbers+"</p>"; 
- 	 	   	 		 	 for (var i = 0; i < Math.min(10, results.length); i++) {
- 	 	   	 		 	 s += "<p>"+results[i].phoneNumbers+"</p>";
- 	 	   	 		 	 }
+ 	 	   	 		 for (var i = 0; i<results.length; i++) {
+ 	 	   	 		 	 s += "<p>"+results[i].displayName+"</p>"; 
  	 	   	 		 	 } 
  	 	   	 		 	 document.getElementById("results").innerHTML=s; 
  	 	   	 		 	 } 
