@@ -3,12 +3,17 @@
  	 <head>
  	 	 <meta name="viewport" content="width=320; user-scalable=no" />
  	 	  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
- 	 	   <title>Apostolis Mamaras</title> 
+ 	 	   <title>contact</title>
  	 	   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
- 	 	   <script> 
- 	 	   function init(){ document.addEventListener("deviceready", startup); } 
+ 	 	   <script>
+ 	 	    
+ 	 	   function init(){ 
+ 	 	   	document.addEventListener("deviceready", startup); 
+ 	 	   	} 
  	 	   
- 	 	   function startup(){ document.getElementById("searchButton").addEventListener("click", handleSearch); } 
+ 	 	   function startup(){ 
+ 	 	   	document.getElementById("searchButton").addEventListener("click", handleSearch); 
+ 	 	   	} 
  	 	   
  	 	   function handleSearch(e){
  	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search 
@@ -25,14 +30,43 @@
  	 	   	 	navigator.notification.alert("Sorry, an error was thrown!"); 
  	 	   	 	} 
  	 	   	 	
- 	 	   	 	function contactSuccess(results){
- 	 	   	 		 //No max, so we will default to only 10 
- 	 	   	 		 var s = ""; 
- 	 	   	 		 for (var i = 0; i<results.length; i++) {
- 	 	   	 		 	 s += "<p>"+results[i].displayName+"</p>"; 
- 	 	   	 		 	 } 
- 	 	   	 		 	 document.getElementById("results").innerHTML=s; 
- 	 	   	 		 	 } 
+ 	 	   	 function contactSuccess(results){
+ 	 	   	 	if(results.length==0){
+ 	 	   	 		document.getElementById("results").innerHTML=""; 
+ 	 	   	 		showConfirm();
+ 	 	   	 	}
+ 	 	   	 	else{
+ 	 	   	 	//finding contact
+ 	 	   	 	var s = "";
+ 	 	   	 	for (var i = 0; i < results.length; i++) {
+ 	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
+ 	 	   	 		 }
+ 	 	   	 		 document.getElementById("results").innerHTML=s;
+ 	 	   	 		}
+ 	 	   	 	} 
+ 	 	   	 	
+ 	 	   	 	
+ 	 	   	 	// Show a custom confirmation dialog
+ 	 	   	 	function showConfirm(){
+ 	 	   	 		navigator.notification.confirm(
+ 	 	   	 			'Would you like to add a new contact', // message
+ 	 	   	 			onConfirm,            // callback to invoke with index of button pressed
+ 	 	   	 			'add new contact',           // title
+ 	 	   	 			['Yes','No']         // buttonLabels
+ 	 	   	 			);
+ 	 	   	 		}
+ 	 	   	 		
+ 	 	   	 	function onConfirm(buttonIndex)
+ 	 	   	 	{
+ 	 	   	 		if(button == 1){
+ 	 	   	 			//pressed "Yes"
+ 	 	   	 			window.location = "create_contact.html";
+ 	 	   	 			}
+ 	 	   	 			else if(button == 2){
+ 	 	   	 				//pressed "No"
+ 	 	   	 				navigator.app.exitApp();
+ 	 	   	 				}
+ 	 	   	 				}
  	 	 </script> 
  	 	 </head> 
  	 	 <body onload="init()"> 
@@ -44,3 +78,4 @@
  	 	 		</form>
  	 	 </body> 
 </html>
+
