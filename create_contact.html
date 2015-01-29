@@ -37,18 +37,18 @@ function saveContact( )
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
 var fullname = fname +" "+lname;
-var note = document.getElementById('note').value;
+var phoneNumbers = document.getElementById('phoneNumbers').value;
 // create a new contact
 var contact = navigator.contacts.create();
 contact.displayName = fullname;
-contact.note = note;
+contact.phoneNumbers = phoneNumbers;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
 contact.name = name;
 // save
 contact.save(onSaveSuccess,onSaveError);
-//alert("contact saving..!");
+alert("contact saving..!");
 }
 // onSaveSuccess: Get a snapshot of the current contacts
 //
@@ -68,8 +68,8 @@ alert("Error = " + contactError.code);
 <input type="text" id="firstname" name="first" /> <br/>
 <label for="flastname" >Last name </label><br/>
 <input type="text" id = "lastname" /> <br/>
-<label for="note" >Note </label><br/>
-<textarea id="note"></textarea> <br/>
+<label for="phonenumber" >Phone Number </label><br/>
+<input type="tel" id="phoneNumbers" name="phoneNumbers"/> <br/>
 <input type="button" value="Save Contact" id="btnSave" onclick="saveContact()"/>
 </form>
 </body>
