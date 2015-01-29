@@ -37,7 +37,7 @@ function saveContact( )
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
 var phoneNumber = document.getElementById('phoneNumber').value;
-var fullname = fname +" "+lname +" "+phoneNumber;
+var fullname = fname +" "+lname;
 // create a new contact
 var contact = navigator.contacts.create();
 contact.displayName = fullname;
@@ -45,6 +45,7 @@ contact.phoneNumbers = phoneNumber;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
+name.phoneNumbers = phoneNumber;
 contact.name = name;
 // save
 contact.save(onSaveSuccess,onSaveError);
