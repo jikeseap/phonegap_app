@@ -8,7 +8,11 @@
  	 	    	 	   
  	 	   <script>
  	 	   document.addEventListener("deviceready", onDeviceReady, false);
+ 	 	   
  	 	   function onDeviceReady() {
+ 	 	   	addContact();
+ 	 	   }
+ 	 	   function addContact(){
  	 	   $(document).bind('deviceready', function(){
  	 	   	$('#btnCreate').bind('touchstart', function(){
  	 	   		var contact = navigator.contacts.create();
