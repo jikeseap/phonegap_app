@@ -38,13 +38,13 @@
  	 	   	 	else{
  	 	   	 	//finding contact
  	 	   	 	var s = "";
- 	 	   	 	var m = "";
+ 	 	   	 	//var m = "";
  	 	   	 	for (var i = 0; i < results.length; i++) {
  	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
- 	 	   	 		 m += "<p>"+results[i].phoneNumbers+"</p>";
+ 	 	   	 		 s += "<p>"+results[i].phoneNumbers+"</p>";
  	 	   	 		 }
  	 	   	 		 document.getElementById("results").innerHTML=s;
- 	 	   	 		 document.getElementById("results").innerHTML=m;
+ 	 	   	 		// document.getElementById("results").innerHTML=m;
  	 	   	 		}
  	 	   	 	} 
  	 	   	 	
