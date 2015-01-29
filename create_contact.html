@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
@@ -73,3 +74,68 @@ alert("Error = " + contactError.code);
 <input type="button" value="Save Contact" id="btnSave" onclick="saveContact()"/>
 </form>
 </body>
+=======
+<!DOCTYPE HTML>
+ <html>
+ 	 <head>
+ 	 	 <meta name="viewport" content="width=320; user-scalable=no" />
+ 	 	  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+ 	 	   <title>create contact</title>
+ 	 	   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+ 	 	    	 	   
+ 	 	   <script>
+ 	 	   document.addEventListener("deviceready", onDeviceReady, false);
+ 	 	   
+ 	 	   function onDeviceReady() {
+ 	 	   	addContact();
+ 	 	   }
+ 	 	   function addContact(){
+ 	 	   $(document).bind('deviceready', function(){
+ 	 	   	$('#btnCreate').bind('touchstart', function(){
+ 	 	   		var contact = navigator.contacts.create();
+ 	 	   		var name = null;
+ 	 	   		
+ 	 	   		contact.displayName=
+ 	 	   		$('#txtFirst').attr('value') + ' ' +
+ 	 	   		$('#txtLast').attr('value');
+ 	 	   		contact.nickname=
+ 	 	   		$('#txtFirst').attr('value') + ' ' +
+ 	 	   		$('#txtLast').attr('value');
+ 	 	   		
+ 	 	   		name = new ContactName();
+ 	 	   		name.givenName = $('#txtFirst').attr('value');
+ 	 	   		name.familyName = $('#txtLast').attr('value');
+ 	 	   		contact.name=name;
+ 	 	   		
+ 	 	   		contact.phoneNumbers = [new ContactField('mobile', $('#txtMobile').attr('value'), true)];
+ 	 	   		
+ 	 	   		contact.save(function(){
+ 	 	   			//success indicated by clearing out of the fields
+ 	 	   			$('#txtFirst').attr('value','');
+ 	 	   			$('#txtLast').attr('value','');
+ 	 	   			$('#txtMobile').attr('value','');
+ 	 	   		}, function(){
+ 	 	   			alert('Error no contact created');
+ 	 	   		});
+ 	 	   	});
+ 	 	   });
+ 	 	   }
+ 	 	   </script>
+	</head>
+	 <div data-role="content">
+      <div id="contactContainer" >
+<h2>Δημιουργεία Επαφής </h2>
+<form id="lblFirst" > First Name: </form>
+<input id="txtFirst" placeholder="First Name"/>
+
+<form id="lblLast"> Last Name: </form>
+<input id="txtLast" placeholder="Last Name"/>
+
+<form id="lblMobile"> Phone : </form>
+<input id="txtMobile" placeholder="Phone"/>
+<br></br>
+<button id="btnCreate" data-corners="false">Create Contact </button>
+       </div>
+    </div>
+</html>
+>>>>>>> origin/master

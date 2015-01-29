@@ -38,10 +38,13 @@
  	 	   	 	else{
  	 	   	 	//finding contact
  	 	   	 	var s = "";
+ 	 	   	 	//var m = "";
  	 	   	 	for (var i = 0; i < results.length; i++) {
  	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
+ 	 	   	 		 //s += "<p>"+results[i].phoneNumbers+"</p>";
  	 	   	 		 }
  	 	   	 		 document.getElementById("results").innerHTML=s;
+ 	 	   	 		// document.getElementById("results").innerHTML=m;
  	 	   	 		}
  	 	   	 	} 
  	 	   	 	
@@ -56,17 +59,16 @@
  	 	   	 			);
  	 	   	 		}
  	 	   	 		
- 	 	   	 	function onConfirm(buttonIndex)
- 	 	   	 	{
- 	 	   	 		if(button == 1){
- 	 	   	 			//pressed "Yes"
- 	 	   	 			window.location = "create_contact.html";
- 	 	   	 			}
- 	 	   	 			else if(button == 2){
- 	 	   	 				//pressed "No"
- 	 	   	 				navigator.app.exitApp();
- 	 	   	 				}
- 	 	   	 				}
+ 	 	   	  	function onConfirm(buttonIndex) {
+			if (buttonIndex == 0 || buttonIndex == 2){
+				//If cancel or back exit app
+				navigator.app.exitApp();
+			}else {
+				//else use localStorage to save contact name and go to next page
+				//window.localStorage.setItem("contact_name", contact_name);
+				window.location = "create_contact.html";
+			}
+		}
  	 	 </script> 
  	 	 </head> 
  	 	 <body onload="init()"> 
