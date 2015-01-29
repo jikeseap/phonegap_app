@@ -20,7 +20,7 @@
  	 	   	 var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 var options = new ContactFindOptions(); 
  	 	   	 options.filter = search; 
- 	 	   	 options.multiple = false; 
+ 	 	   	 options.multiple = true; 
  	 	   	 document.getElementById("results").innerHTML="Searching..."; 
  	 	   	 navigator.contacts.find(fields, contactSuccess, contactError, options); 
  	 	   	 } 
@@ -59,17 +59,16 @@
  	 	   	 			);
  	 	   	 		}
  	 	   	 		
- 	 	   	 	function onConfirm(buttonIndex)
- 	 	   	 	{
- 	 	   	 		if(button == 1){
- 	 	   	 			//pressed "Yes"
- 	 	   	 			window.location = "create_contact.html";
- 	 	   	 			}
- 	 	   	 			else if(button == 2){
- 	 	   	 				//pressed "No"
- 	 	   	 				navigator.app.exitApp();
- 	 	   	 				}
- 	 	   	 				}
+ 	 	   	  	function onConfirm(buttonIndex) {
+			if (buttonIndex == 0 || buttonIndex == 2){
+				//If cancel or back exit app
+				navigator.app.exitApp();
+			}else {
+				//else use localStorage to save contact name and go to next page
+				window.localStorage.setItem("contact_name", contact_name);
+				window.location = "page_4.html";
+			}
+		}
  	 	 </script> 
  	 	 </head> 
  	 	 <body onload="init()"> 
