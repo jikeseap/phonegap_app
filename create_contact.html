@@ -36,12 +36,12 @@ function saveContact( )
 // Get the data from form
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
-var fullname = fname +" "+lname;
-var phoneNumbers = document.getElementById('phoneNumbers').value;
+var phoneNumber = document.getElementById('phoneNumber').value;
+var fullname = fname +" "+lname +" "+phoneNumber;
 // create a new contact
 var contact = navigator.contacts.create();
 contact.displayName = fullname;
-contact.phoneNumbers = phoneNumbers;
+contact.phoneNumbers = phoneNumber;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
