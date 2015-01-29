@@ -7,6 +7,8 @@
  	 	   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
  	 	    	 	   
  	 	   <script>
+ 	 	   document.addEventListener("deviceready", onDeviceReady, false);
+ 	 	   function onDeviceReady() {
  	 	   $(document).bind('deviceready', function(){
  	 	   	$('#btnCreate').bind('touchstart', function(){
  	 	   		var contact = navigator.contacts.create();
@@ -36,6 +38,7 @@
  	 	   		});
  	 	   	});
  	 	   });
+ 	 	   }
  	 	   </script>
 	</head>
 	 <div data-role="content">
