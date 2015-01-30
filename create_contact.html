@@ -36,8 +36,9 @@ function saveContact( )
 // Get the data from form
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
-var fullname = fname +" "+lname;
 var phoneNumber = document.getElementById('phoneNumbers').value;
+var fullname = fname +" "+lname +" "+phoneNumber;
+
 
 // create a new contact
 var contact = navigator.contacts.create();
