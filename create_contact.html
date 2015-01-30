@@ -36,24 +36,23 @@ function saveContact( )
 // Get the data from form
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
-var phoneNumber = document.getElementById('phoneNumbers').value;
+var phoneNumbers = document.getElementById('phoneNumbers').value;
 var fullname = fname +" "+lname;
-var fullnumber = phoneNumber;
+
 
 
 // create a new contact
 var contact = navigator.contacts.create();
 contact.displayName = fullname;
-contact.phoneNumbers = fullnumber;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
 
 contact.name = name;
-contact.phoneNumbers = phoneNumber;
+contact.phoneNumbers = phoneNumbers;
 // save
 contact.save(onSaveSuccess,onSaveError);
- document.getElementById("results").innerHTML="contact saving..!";
+ //document.getElementById("results").innerHTML="contact saving..!";
 }
 // onSaveSuccess: Get a snapshot of the current contacts
 //
