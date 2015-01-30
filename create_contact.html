@@ -36,7 +36,7 @@ function saveContact( )
 // Get the data from form
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
-var phoneNumbers = document.getElementById('telephone').value;
+var phoneNumbers = document.getElementById('phoneNumbers').value;
 var fullname = fname +" "+lname;
 
 
@@ -47,9 +47,10 @@ contact.displayName = fullname;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
-
 contact.name = name;
-contact.phoneNumbers = phoneNumbers;
+var phoneNums = [1];
+phoneNums [0] = new ContactField('mobile', phoneNumbers, true);
+contact.phoneNumbers = phoneNums;
 // save
 contact.save(onSaveSuccess,onSaveError);
  //document.getElementById("results").innerHTML="contact saving..!";
@@ -74,7 +75,7 @@ alert("Error = " + contactError.code);
 <label for="flastname" >Last name </label><br/>
 <input type="text" id = "lastname" /> <br/>
 <label for="phonenumber" >Phone Number </label><br/>
-<input type="tel" id="telephone" name="phoneNumbers"/> <br/>
+<input type="tel" id="phoneNumbers" name="phoneNumbers"/> <br/>
 <input type="button" value="Save Contact" id="btnSave" onclick="saveContact()"/>
 </form>
 </body>
