@@ -48,8 +48,9 @@ contact.phoneNumbers = fullnumber;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
-name.phoneNumbers = phoneNumber;
+
 contact.name = name;
+contact.phoneNumbers = phoneNumber;
 // save
 contact.save(onSaveSuccess,onSaveError);
  document.getElementById("results").innerHTML="contact saving..!";
