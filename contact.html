@@ -17,10 +17,10 @@
  	 	   
  	 	   function handleSearch(e){
  	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search 
- 	 	   	 var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 var options = new ContactFindOptions(); 
  	 	   	 options.filter = search; 
  	 	   	 options.multiple = true; 
+ 	 	   	  var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 document.getElementById("results").innerHTML="Searching..."; 
  	 	   	 navigator.contacts.find(fields, contactSuccess, contactError, options); 
  	 	   	 } 
@@ -41,7 +41,9 @@
  	 	   	 	//var m = "";
  	 	   	 	for (var i = 0; i < results.length; i++) {
  	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
- 	 	   	 		 //s += "<p>"+results[i].phoneNumbers+"</p>";
+ 	 	   	 		  for (var j=0; j<results[i].phoneNumbers.length; j++) {
+ 	 	   	 		    	s+= "<p>"+contacts[i].phoneNumbers[j]+"</p>";
+ 	 	   	 		    	}
  	 	   	 		 }
  	 	   	 		 //document.getElementById("results").innerHTML= "";
  	 	   	 		document.getElementById("results").innerHTML=s;
