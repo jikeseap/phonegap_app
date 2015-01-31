@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>Edit Contact</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8">
+
+		document.addEventListener("deviceready", onDeviceReady, false);
+			
+		function onDeviceReady() {
+
+			//set surname and phone number
+			window.localStorage.setItem("myContact", "");
+			window.localStorage.setItem("myMobile", "");
+			
+			//Set event when button click 
+			document.getElementById("CreateContact").addEventListener("click", handleSearch);
+			
+			var set_name = document.getElementById("name");
+			//Taking the name of the contact 
+			set_name.value = window.localStorage.getItem("myContact");
+			
+			//Save changes
+			function handleSearch(e){
+				//Save contact's data 
+				window.localStorage.setItem("first_name", document.getElementById("firstname").value);
+				window.localStorage.setItem("last_name", document.getElementById("lastname").value);
+				window.localStorage.setItem("mobile_phone", document.getElementById("phoneNum").value);
+				window.location = "camera.html";
+			}	
+		}
+
+	</script>
+	</head>
+	<body>
+		<h1>Edit Contact</h1>
+	<form>
+		<input type="text" size="20" id="firstname" placeholder="First name" required/>
+		<input type="text" size="20" id="lastname" placeholder="Last name" required/>
+		<input type="tel" size="20" id="phoneNum" placeholder="Set phone number" required/>
+		<input type="button" id="EditContact" value="Save Changes"/>
+	</form>
+	</body>
+</html>
+
