@@ -20,7 +20,7 @@
     }
     
    
-	var myVar = setInterval(function () {checkConnection();});
+	var myVar = setInterval(function () {checkConnection();}, 3000);
     function checkConnection() {
         var networkState = navigator.connection.type;
         var states = {};
@@ -32,15 +32,13 @@
         states[Connection.CELL_4G]  = 'Cell 4G connection';
         states[Connection.NONE]     = 'No network connection';
        // alert('Connection type: ' + states[networkState]);
-     
        
-        	if((states[networkState] == "No network connection") || (states[networkState] == "Unknown connection")){
-        		alert("Your phone’s web connection is not working. Please check and relaunch app");
-        		window.location="network.html";
-        		}
+       if((networkState == Connection.UNKNOWN) || (networkState == Connection.NONE)){
+       	alert("Your phone’s web connection is not working. Please check and relaunch app");
+       	window.location="network.html";
+       	}
         else
         {
-        	//<meta http-equiv="refresh" content="3; url=network.html">
         	alert('Connection type: ' + states[networkState]);
         	window.location="contact.html";
         	
@@ -49,7 +47,7 @@
     </script>
   </head>
   <body>
-    <p>A dialog box will report the network state.</p>
+    <p>A message will inform you about netwok condition!!!</p>
    
   </body>
 </html>
