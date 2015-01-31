@@ -36,19 +36,23 @@ function saveContact( )
 // Get the data from form
 var fname = document.getElementById('firstname').value;
 var lname = document.getElementById('lastname').value;
-var fullname = fname +" "+lname;
 var phoneNumbers = document.getElementById('phoneNumbers').value;
+var fullname = fname +" "+lname;
+
+
+
 // create a new contact
 var contact = navigator.contacts.create();
 contact.displayName = fullname;
-contact.phoneNumbers = phoneNumbers;
 var name = new ContactName();
 name.givenName = fname;
 name.familyName = lname;
 contact.name = name;
+var phoneNums = [1];
+phoneNums [0] = new ContactField('mobile', phoneNumbers, true);
+contact.phoneNumbers = phoneNums;
 // save
 contact.save(onSaveSuccess,onSaveError);
-alert("contact saving..!");
 }
 // onSaveSuccess: Get a snapshot of the current contacts
 //
@@ -63,6 +67,7 @@ alert("Error = " + contactError.code);
 </script>
 </head>
 <body>
+<h1>creating a new contact</h1>
 <form id="cform">
 <label for="firstname" >First name </label><br/>
 <input type="text" id="firstname" name="first" /> <br/>
@@ -71,5 +76,6 @@ alert("Error = " + contactError.code);
 <label for="phonenumber" >Phone Number </label><br/>
 <input type="tel" id="phoneNumbers" name="phoneNumbers"/> <br/>
 <input type="button" value="Save Contact" id="btnSave" onclick="saveContact()"/>
+<input type="button" value="Take a Photo" id="smallImage" onclick="camera.html"/>
 </form>
 </body>
