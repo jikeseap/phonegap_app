@@ -53,21 +53,39 @@ phoneNums [0] = new ContactField('mobile', phoneNumbers, true);
 contact.phoneNumbers = phoneNums;
 // save
 contact.save(onSaveSuccess,onSaveError);
-<<<<<<< HEAD
-=======
- //document.getElementById("results").innerHTML="contact saving..!";
->>>>>>> origin/master
 }
 // onSaveSuccess: Get a snapshot of the current contacts
 //
 function onSaveSuccess(contact) {
 alert("Save Success");
+var myVar = setTimeout(function(){showConfirm();},3000);
 }
 // onSaveError: Failed to get the contacts
 //
 function onSaveError(contactError) {
 alert("Error = " + contactError.code);
 }
+
+// Show a custom confirmation dialog
+function showConfirm(){
+	navigator.notification.confirm(
+		'Would you like to take a photo', // message
+		onConfirm, // callback to invoke with index of button pressed
+		'contact photo', // title
+		['Yes','No']    // buttonLabels
+		);
+		}
+
+function onConfirm(buttonIndex) {
+	if (buttonIndex == 0 || buttonIndex == 2){
+		//If no button pressed return to search contact
+		window.location = "contact.html";
+		}
+		else {
+				//else use localStorage to save contact name and go to next page
+				window.location = "camera.html";
+			}
+		}
 </script>
 </head>
 <body>
@@ -80,6 +98,5 @@ alert("Error = " + contactError.code);
 <label for="phonenumber" >Phone Number </label><br/>
 <input type="tel" id="phoneNumbers" name="phoneNumbers"/> <br/>
 <input type="button" value="Save Contact" id="btnSave" onclick="saveContact()"/>
-<input type="button" value="Take a Photo" id="smallImage" onclick="camera.html"/>
 </form>
 </body>
