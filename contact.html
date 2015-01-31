@@ -19,7 +19,7 @@
  	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search 
  	 	   	 var options = new ContactFindOptions(); 
  	 	   	 options.filter = search; 
- 	 	   	 options.multiple = true; 
+ 	 	   	 options.multiple = false; 
  	 	   	  var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 document.getElementById("results").innerHTML="Searching..."; 
  	 	   	 navigator.contacts.find(fields, contactSuccess, contactError, options); 
