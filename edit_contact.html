@@ -20,7 +20,7 @@
 			var set_name = document.getElementById("name");
 			//Get the name of the contact
 			set_name.value = window.localStorage.getItem("myContact");
-		}
+		
 		
 			function updateContactInfo(contact){
 			var firstName = document.getElementById("firstname").value;
@@ -45,6 +45,7 @@
 		
 		function onUpdateError(contactError){
 			alert("Error in creating updating contact" + contactError.code);
+		}
 		}
 
 	</script>
