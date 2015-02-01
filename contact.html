@@ -76,6 +76,9 @@
 			window.localStorage.setItem("myContact", myContact);
 			window.location="edit_contact.html";
 		}
+		function takeQRCode(){
+			window.location="qrcode.html";
+		}
 </script>
  	 	 </script> 
  	 	 </head> 
@@ -86,6 +89,8 @@
  	 	 		<input type="button" id="searchButton" value="Search"> 
  	 	 		<input type="button" value="Edit Contact" id="EditContact" onclick="editContact()"/> 
  	 	 		<input type="button" value="Take Photo" id="smallImage" onclick="takePhoto()"/>
+ 	 	 		<br>
+ 	 	 		<input type="button" value="Scan QR Code" id="data" onclick="takeQRCode()"/>
  	 	 		<div id="results"></div> 
  	 	 		</form>
  	 	 </body> 
