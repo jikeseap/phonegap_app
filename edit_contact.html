@@ -12,23 +12,39 @@
 
 			//Initialize contact
 			window.localStorage.setItem("mySurname", "");
-			window.localStorage.setItem("myNumber", "");
+			window.localStorage.setItem("phoneNumbers", "");
 			
 			//Action on button click
-			document.getElementById("CreateContact").addEventListener("click", handleSearch);
+			document.getElementById("EditContact").addEventListener("click", updateContactInfo);
 			
 			var set_name = document.getElementById("name");
 			//Get the name of the contact
 			set_name.value = window.localStorage.getItem("myContact");
-			
-			//when button clicked
-			function handleSearch(e){
-				//Save contact
-				window.localStorage.setItem("firstname", document.getElementById("First Name").value);
-				window.localStorage.setItem("lastname", document.getElementById("Last Name").value);
-				window.localStorage.setItem("phoneNumbers", document.getElementById("Phone Number").value);
-				//window.location = "page_5.html";
-			}	
+		}
+		
+			function updateContactInfo(contact){
+			var firstName = document.getElementById("firstname").value;
+			var lastName = document.getElementById("lastname").value;
+			var phoneNumbers = document.getElementById("phoneNumbers").value;
+			var nameObject = new ContactName();
+			nameObject.givenName = firstName;
+			nameObject.familyName = lastName;
+			nameOblect.formatted = firstName + " " + lastName;
+			contact.name = nameObject;
+			contact.displayName = firstName + "" + lastName;
+			var phoneNums = [2];
+			phoneNums[0] = new ContactField('work', phoneWork, true);
+			phoneNums[1] = new ContactField('mobile', phoneMobile, true);
+			contact.phoneNumbers = phoneNums;
+			contact.save(onUpdateSuccess, onUpdateError);
+		}
+		
+		function onUpdateSuccess (contact){
+			alert("Contact successfully updated");
+		}
+		
+		function onUpdateError(contactError){
+			alert("Error in creating updating contact" + contactError.code);
 		}
 
 	</script>
@@ -39,7 +55,8 @@
 		<input type="text" size="20" id="firstname" placeholder="First Name" required/>
 		<input type="text" size="20" id="lastname" placeholder="Last Name" required/>
 		<input type="tel" size="20" id="phoneNumbers" placeholder="Phone Number" required/>
-		<input type="button" id="btnSave" value="Save Contact"/>
+		<br>
+		<input type="button" id="EditContact" value="Update Contact"/>
 	</form>
 	</body>
 </html>
