@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>Edit Contact</title>
+	<title>Edit contact</title>
 	<meta charset="utf-8" />
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	<script type="text/javascript" charset="utf-8">
@@ -9,59 +9,37 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 			
 		function onDeviceReady() {
-		showConfirm();
-		}
-		
-		 function showConfirm(){
- 	 	   	 		navigator.notification.confirm(
- 	 	   	 			'Would you like to edit contact info', 
- 	 	   	 			onConfirm,
- 	 	   	 			'edit contact',
- 	 	   	 			['Yes','No']
- 	 	   	 		);
- 	 	   	 	}
- 	 	   	 	
- 	 	   	 	function onConfirm(buttonIndex){
- 	 	   	 		if(buttonIndex==0 || buttonIndex==2){
- 	 	   	 		//If no search new contact
- 	 	   	 		window.location = "contact.html";
- 	 	   	 		}
- 	 	   	 		else{
- 	 	   	 			window.localStorage.setItem("myContact", result);
- 	 	   	 			window.location = "edit_contact.html";
- 	 	   	 	
 
-			//set surname and phone number
-			window.localStorage.setItem("myContact", "");
-			window.localStorage.setItem("myMobile", "");
+			//Initialize contact
+			window.localStorage.setItem("mySurname", "");
+			window.localStorage.setItem("myNumber", "");
 			
-			//Set event when button click 
+			//Action on button click
 			document.getElementById("CreateContact").addEventListener("click", handleSearch);
 			
 			var set_name = document.getElementById("name");
-			//Taking the name of the contact 
+			//Get the name of the contact
 			set_name.value = window.localStorage.getItem("myContact");
-			}
-			}
-			//Save changes
+			
+			//when button clicked
 			function handleSearch(e){
-				//Save contact's data 
-				window.localStorage.setItem("first_name", document.getElementById("firstname").value);
-				window.localStorage.setItem("last_name", document.getElementById("lastname").value);
-				window.localStorage.setItem("mobile_phone", document.getElementById("phoneNum").value);
-				window.location = "camera.html";
+				//Save contact
+				window.localStorage.setItem("firstname", document.getElementById("First Name").value);
+				window.localStorage.setItem("lastname", document.getElementById("Last Name").value);
+				window.localStorage.setItem("phoneNumbers", document.getElementById("Phone Number").value);
+				//window.location = "page_5.html";
 			}	
+		}
 
 	</script>
 	</head>
 	<body>
 		<h1>Edit Contact</h1>
 	<form>
-		<input type="text" size="20" id="firstname" placeholder="First name" required/>
-		<input type="text" size="20" id="lastname" placeholder="Last name" required/>
-		<input type="tel" size="20" id="phoneNum" placeholder="Set phone number" required/>
-		<input type="button" id="EditContact" value="Save Changes"/>
+		<input type="text" size="20" id="firstname" placeholder="First Name" required/>
+		<input type="text" size="20" id="lastname" placeholder="Last Name" required/>
+		<input type="tel" size="20" id="phoneNumbers" placeholder="Phone Number" required/>
+		<input type="button" id="btnSave" value="Save Contact"/>
 	</form>
 	</body>
 </html>
-
