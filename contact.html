@@ -42,7 +42,15 @@
  	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
  	 	   	 		 }
  	 	   	 		 document.getElementById("results").innerHTML=s;
- 	 	   	 		 showMessage();
+ 	 	   	 		 //showMessage();
+ 	 	   	 		 var answer = confrim("edit contact ?")
+ 	 	   	 		 if(answer)
+ 	 	   	 		 {
+ 	 	   	 		 	alert("success")
+ 	 	   	 		 }
+ 	 	   	 		 else{
+ 	 	   	 		 	navigator.app.exitApp();
+ 	 	   	 		 }
  	 	   	 		 //document.getElementById("name").value = "";
  	 	   	 		 }
  	 	   	 	} 
@@ -56,8 +64,8 @@
  	 	   	 		);
  	 	   	 	}
  	 	   	 	
- 	 	   	 	function onMessage(buttonIndex){
- 	 	   	 		if(buttonIndex==0 || buttonIndex==2){
+ 	 	   	 	function onMessage(button){
+ 	 	   	 		if(button==0 || buttonIndex==2){
  	 	   	 		//If no search new contact
  	 	   	 		window.location = "contact.html";
  	 	   	 		}
