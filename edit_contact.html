@@ -9,6 +9,27 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 			
 		function onDeviceReady() {
+		showConfirm();
+		}
+		
+		 function showConfirm(){
+ 	 	   	 		navigator.notification.confirm(
+ 	 	   	 			'Would you like to edit contact info', 
+ 	 	   	 			onConfirm,
+ 	 	   	 			'edit contact',
+ 	 	   	 			['Yes','No']
+ 	 	   	 		);
+ 	 	   	 	}
+ 	 	   	 	
+ 	 	   	 	function onConfirm(buttonIndex){
+ 	 	   	 		if(buttonIndex==0 || buttonIndex==2){
+ 	 	   	 		//If no search new contact
+ 	 	   	 		window.location = "contact.html";
+ 	 	   	 		}
+ 	 	   	 		else{
+ 	 	   	 			window.localStorage.setItem("myContact", result);
+ 	 	   	 			window.location = "edit_contact.html";
+ 	 	   	 	
 
 			//set surname and phone number
 			window.localStorage.setItem("myContact", "");
@@ -20,7 +41,8 @@
 			var set_name = document.getElementById("name");
 			//Taking the name of the contact 
 			set_name.value = window.localStorage.getItem("myContact");
-			
+			}
+			}
 			//Save changes
 			function handleSearch(e){
 				//Save contact's data 
@@ -29,7 +51,6 @@
 				window.localStorage.setItem("mobile_phone", document.getElementById("phoneNum").value);
 				window.location = "camera.html";
 			}	
-		}
 
 	</script>
 	</head>

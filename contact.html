@@ -17,10 +17,10 @@
  	 	   
  	 	   function handleSearch(e){
  	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search 
+ 	 	   	 var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 var options = new ContactFindOptions(); 
  	 	   	 options.filter = search; 
- 	 	   	 options.multiple = false; 
- 	 	   	  var fields = ["displayName", "phoneNumbers"]; //Options for the search 
+ 	 	   	 options.multiple = true; 
  	 	   	 document.getElementById("results").innerHTML="Searching..."; 
  	 	   	 navigator.contacts.find(fields, contactSuccess, contactError, options); 
  	 	   	 } 
@@ -38,20 +38,18 @@
  	 	   	 	else{
  	 	   	 	//finding contact
  	 	   	 	var s = "";
- 	 	   	 	//var m = "";
  	 	   	 	for (var i = 0; i < results.length; i++) {
  	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
- 	 	   	 		  for (var j=0; j<results[i].phoneNumbers.length; j++) {
- 	 	   	 		    	s+= "<p>"+contacts[i].phoneNumbers[j]+"</p>";
- 	 	   	 		    	}
  	 	   	 		 }
- 	 	   	 		 //document.getElementById("results").innerHTML= "";
- 	 	   	 		document.getElementById("results").innerHTML=s;
- 	 	   	 		// document.getElementById("results").innerHTML=m;
- 	 	   	 		}
+ 	 	   	 		 document.getElementById("results").innerHTML=s;
+ 	 	   	 		 //showMessage();
+ 	 	   	 		 //document.getElementById("name").value = "";
+ 	 	   	 		 	window.localStorage.setItem("myContact", result);
+ 	 	   	 			window.location = "edit_contact.html";
+ 	 	   	 		 
+ 	 	   	 		 }
  	 	   	 	} 
- 	 	   	 	
- 	 	   	 	
+ 	 	   	 	 	 	   	 	
  	 	   	 	// Show a custom confirmation dialog
  	 	   	 	function showConfirm(){
  	 	   	 		navigator.notification.confirm(
@@ -62,9 +60,9 @@
  	 	   	 			);
  	 	   	 		}
  	 	   	 		
- 	 	   	  	function onConfirm(buttonIndex) {
+ 	 	   	 	function onConfirm(buttonIndex) {
 			if (buttonIndex == 0 || buttonIndex == 2){
-				//If cancel or back exit app
+				//If no pressed exit app
 				navigator.app.exitApp();
 			}else {
 				//else use localStorage to save contact name and go to next page
