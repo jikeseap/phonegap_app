@@ -70,6 +70,10 @@
 				window.location = "create_contact.html";
 			}
 		}
+		function takePhoto(){
+			window.location="camera.html";
+		}
+</script>
  	 	 </script> 
  	 	 </head> 
  	 	 <body onload="init()"> 
@@ -77,6 +81,7 @@
  	 	 	<form> 
  	 	 		<input type="text" id="name"><br/> 
  	 	 		<input type="button" id="searchButton" value="Search"> 
+ 	 	 		<input type="button" value="Take Photo" id="smallImage" onclick="takePhoto()"/>
  	 	 		<div id="results"></div> 
  	 	 		</form>
  	 	 </body> 
