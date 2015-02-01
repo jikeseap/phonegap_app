@@ -1,125 +1,230 @@
 /**
- * cordova is available under *either* the terms of the modified BSD license *or* the
- * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * BarcodeScanner.js is licensed under the MIT license, (c) 2010.
  *
- * Copyright (c) Matt Kane 2010
- * Copyright (c) 2011, IBM Corporation
+ * @author Daniel Cousineau <dcousineau@gmail.com> 
  */
 
-    var ScannerLoader = function (require, exports, module) {
-
-        var exec = require("cordova/exec");
-
-        /**
-         * Constructor.
-         *
-         * @returns {BarcodeScanner}
-         */
-        function BarcodeScanner() {
-
-            /**
-             * Encoding constants.
-             *
-             * @type Object
-             */
-            this.Encode = {
-                TEXT_TYPE: "TEXT_TYPE",
-                EMAIL_TYPE: "EMAIL_TYPE",
-                PHONE_TYPE: "PHONE_TYPE",
-                SMS_TYPE: "SMS_TYPE"
-                //  CONTACT_TYPE: "CONTACT_TYPE",  // TODO:  not implemented, requires passing a Bundle class from Javascript to Java
-                //  LOCATION_TYPE: "LOCATION_TYPE" // TODO:  not implemented, requires passing a Bundle class from Javascript to Java
-            };
-
-            /**
-             * Barcode format constants, defined in ZXing library.
-             *
-             * @type Object
-             */
-            this.format = {
-                "all_1D": 61918,
-                "aztec": 1,
-                "codabar": 2,
-                "code_128": 16,
-                "code_39": 4,
-                "code_93": 8,
-                "data_MATRIX": 32,
-                "ean_13": 128,
-                "ean_8": 64,
-                "itf": 256,
-                "maxicode": 512,
-                "msi": 131072,
-                "pdf_417": 1024,
-                "plessey": 262144,
-                "qr_CODE": 2048,
-                "rss_14": 4096,
-                "rss_EXPANDED": 8192,
-                "upc_A": 16384,
-                "upc_E": 32768,
-                "upc_EAN_EXTENSION": 65536
-            };
-        };
-
-        /**
-         * Read code from scanner.
-         *
-         * @param {Function} successCallback This function will recieve a result object: {
-         *        text : '12345-mock',    // The code that was scanned.
-         *        format : 'FORMAT_NAME', // Code format.
-         *        cancelled : true/false, // Was canceled.
-         *    }
-         * @param {Function} errorCallback
-         */
-        BarcodeScanner.prototype.scan = function (successCallback, errorCallback) {
-            if (errorCallback == null) {
-                errorCallback = function () {
-                };
-            }
-
-            if (typeof errorCallback != "function") {
-                console.log("BarcodeScanner.scan failure: failure parameter not a function");
-                return;
-            }
-
-            if (typeof successCallback != "function") {
-                console.log("BarcodeScanner.scan failure: success callback parameter must be a function");
-                return;
-            }
-
-            exec(successCallback, errorCallback, 'BarcodeScanner', 'scan', []);
-        };
-
-        //-------------------------------------------------------------------
-        BarcodeScanner.prototype.encode = function (type, data, successCallback, errorCallback, options) {
-            if (errorCallback == null) {
-                errorCallback = function () {
-                };
-            }
-
-            if (typeof errorCallback != "function") {
-                console.log("BarcodeScanner.encode failure: failure parameter not a function");
-                return;
-            }
-
-            if (typeof successCallback != "function") {
-                console.log("BarcodeScanner.encode failure: success callback parameter must be a function");
-                return;
-            }
-
-            exec(successCallback, errorCallback, 'BarcodeScanner', 'encode', [
-                {"type": type, "data": data, "options": options}
-            ]);
-        };
-
-        var barcodeScanner = new BarcodeScanner();
-        module.exports = barcodeScanner;
-
+/**
+ * Provides a self-contained object environment from which the scanner listener 
+ * can work
+ * 
+ * @constructor
+ */
+function BarcodeScanner(settings) {
+    this.settings = {
+        waitTolerance: 20, //Key presses must come within a tolerated delay between each press
+        variationTolerance: 3, //Key presses must be evenly spaced with a variation tolerance
+        scanCallback: null,
+        debug: false,
+        debugCallback: null
+    };
+    
+    for( key in settings ) {
+        this.settings[key] = settings[key];
     }
+    
+    this.reset();
+}
 
-    ScannerLoader(require, exports, module);
+/**
+ * Logs a message to the firebug console.
+ */
+BarcodeScanner.prototype.log = function(message) {
+    if( this.settings.debug ) {
+        if( typeof this.settings.debugCallback == 'function' )
+            this.settings.debugCallback(message);
+        else {
+            try {
+                console.log(message);
+            } catch( err ) {
+                alert(message);
+            }
+        }
+    }
+};
 
-    cordova.define("cordova/plugin/BarcodeScanner", ScannerLoader);
+/**
+ * Clears state and timeouts, ususally performed when the system knows the input came
+ * from a human and not a scanner.
+ */
+BarcodeScanner.prototype.reset = function() {
+    //We're resetting, clear the timeout if it exists
+    try {
+        clearTimeout(this.timeout);
+    } catch( err ) {
+        //Ignore errors, just presume the timeout was previously cleared.
+    }
+    
+    this.stack = [];
+    this.timeout = false;
+    this.lastPressed = false;
+};
 
+/**
+ * Callback to pass along received barcode inputs
+ */
+BarcodeScanner.prototype.receive = function(code) {
+    this.log('[RECEIVE CALLBACK] Accepted Code: ' + code);
 
+    if( typeof this.settings.scanCallback == 'function' )
+        this.settings.scanCallback(code);
+};
 
+/**
+ * Scans the stack of recorded keypresses, looking for a group of keypresses that fits
+ * within tolerance levels and report back.
+ */
+BarcodeScanner.prototype.validateStack = function() {
+    var sumTimes = 0;
+    var valid = [];
+    
+    for( var i = 0; i < this.stack.length; i++ ) {
+        
+        var press = this.stack[i];
+        
+        if( i == 0 ) {
+            //First char, go ahead and push
+            valid.push(press.key);
+        }
+        else {
+            var previous = this.stack[i-1];
+            var delay = press.time - previous.time;
+            
+            if( delay > this.settings.waitTolerance ) {
+                //Keypress was outside the wait tolerance, which means we now ignore
+                //all following keypresses and just work with what we've collected
+                this.log('[STACK VALIDATION] Scan outside wait tolerance');
+                
+                break;
+            }
+            else {
+                sumTimes += delay;
+                valid.push(press.key);
+                
+                //Calculaate the current average for delays between keypresses
+                var currentAverage = Math.round(sumTimes/(valid.length-1));
+                
+                if( Math.abs(currentAverage - delay) > this.settings.variationTolerance ) {
+                    //Key press delay is not consistent with previous delays, we can
+                    //assume that this is due to human error.
+                    this.log('[STACK VALIDATION] Scan outside variation tolerance');
+                    
+                    valid = [];
+                    
+                    break;
+                }
+                
+            }
+        }
+        
+    }
+    
+    //A human mashing a keyboard can only get up to 3 characters within specified
+    //delay and variation tolerances. Since we can assume barcodes will always be 
+    //larger than 3 characters, assume that anything over 3 keypresses is the scanner
+    if( valid.length > 3 )
+        return valid;
+    else
+        return false;
+};
 
+/**
+ * Returns an event listener to be used with any keypress event.
+ * 
+ * E.g. $(window).keypress(scanner.getKeypressListener());
+ */
+BarcodeScanner.prototype.getKeypressListener = function() {
+    var instance  = this;
+
+    return function() {
+        return BarcodeScanner.listener.apply(instance, arguments);
+    };
+};
+
+/**
+ * Cross-browser abstraction to grab the character from the event.
+ */
+BarcodeScanner.getChar = function(event) {
+    var code = null;
+    
+    if( event.keyCode )
+        code = event.keyCode;
+    else if( event.which )
+        code = event.which;
+    
+    return String.fromCharCode(code);
+};
+
+/**
+ * Primary event listener
+ */
+BarcodeScanner.listener = function(event) {
+    var keyPressed = BarcodeScanner.getChar(event);
+    var timePressed = new Date().getTime();
+    
+    if( !this.timeout )
+    {
+        var instance = this;
+
+        //Create a timeout so that the scanner has only a small window to input all
+        //characters. The window is small enough that a human cannot input characters
+        //in line with tolerances fast enough, but within the amount of time it takes
+        //the scanner to send the data from a large-ish barcode.
+        this.timeout = setTimeout(function() { 
+            (function() {
+                    
+                var valid = this.validateStack();
+                
+                this.reset();
+                
+                if( valid ) {
+                    return this.receive( valid.join('') );
+                }
+                else {
+                    this.log('[LISTENER TIMEOUT] Outside of timeout tolerance');
+                    
+                    return;
+                }
+                
+            }).apply(instance, arguments);
+        }, 250);
+    }
+    
+    //Pre-emptive invalidation. If the keypress notices a key outside of the wait
+    //tolerance, go ahead and clear things up instead of waiting for the listener
+    if( this.lastPressed && this.lastPressed - timePressed  > this.settings.waitTolerance ) {
+        
+        //If this is the second character and we're already outsidde the wait tolerance, just reset.
+        if( this.stack.length <= 1 ) {
+            this.reset();
+        }
+        else {
+            
+            //A stream of characters has already been input. Go ahead and check
+            //the stack. If we find a valid scan inside, go ahead and clear the
+            //timeout and signal receipt as normal
+            var valid = this.validateStack();
+            
+            this.reset();
+            
+            if( valid ) {
+                return this.receive( valid.join('') );
+            }
+            else {
+                return false;
+            }
+        }
+        
+    }
+    else {
+        
+        //Everything is within acceptable tolerances so far, just record the keypress.
+        this.stack.push({
+            key: keyPressed,
+            time: timePressed
+        });
+        
+    }
+    
+    this.lastPressed = timePressed;
+};
