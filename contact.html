@@ -6,7 +6,9 @@
  	 	   <title>contact</title>
  	 	   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
  	 	   <script>
- 	 	    
+ 	 	   
+ 	 	    //sets the currenct contact
+ 	 	    var myContact = "";
  	 	   function init(){ 
  	 	   	document.addEventListener("deviceready", startup); 
  	 	   	} 
@@ -16,7 +18,8 @@
  	 	   	} 
  	 	   
  	 	   function handleSearch(e){
- 	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search 
+ 	 	   	 var search = document.getElementById("name").value; //What parts of the contact we will search
+ 	 	   	 mtContact = search; 
  	 	   	 var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 var options = new ContactFindOptions(); 
  	 	   	 options.filter = search; 
@@ -42,11 +45,6 @@
  	 	   	 		 s += "<p>"+results[i].displayName+"</p>";
  	 	   	 		 }
  	 	   	 		 document.getElementById("results").innerHTML=s;
- 	 	   	 		 //showMessage();
- 	 	   	 		 //document.getElementById("name").value = "";
- 	 	   	 		 	window.localStorage.setItem("myContact", result);
- 	 	   	 			window.location = "edit_contact.html";
- 	 	   	 		 
  	 	   	 		 }
  	 	   	 	} 
  	 	   	 	 	 	   	 	
@@ -65,13 +63,18 @@
 				//If no pressed exit app
 				navigator.app.exitApp();
 			}else {
-				//else use localStorage to save contact name and go to next page
-				//window.localStorage.setItem("contact_name", contact_name);
+				//create new contact
 				window.location = "create_contact.html";
 			}
 		}
 		function takePhoto(){
 			window.location="camera.html";
+		}
+		
+		function editContact(){
+			
+			window.localStorage.setItem("myContact", result);
+			window.location="edit_contact.html";
 		}
 </script>
  	 	 </script> 
@@ -81,6 +84,7 @@
  	 	 	<form> 
  	 	 		<input type="text" id="name"><br/> 
  	 	 		<input type="button" id="searchButton" value="Search"> 
+ 	 	 		<input type="button" value="Edit Contact" id="EditContact" onclick="editContact()"/> 
  	 	 		<input type="button" value="Take Photo" id="smallImage" onclick="takePhoto()"/>
  	 	 		<div id="results"></div> 
  	 	 		</form>
