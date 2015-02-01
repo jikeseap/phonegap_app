@@ -23,7 +23,7 @@
  	 	   	 var fields = ["displayName", "phoneNumbers"]; //Options for the search 
  	 	   	 var options = new ContactFindOptions(); 
  	 	   	 options.filter = search; 
- 	 	   	 options.multiple = true; 
+ 	 	   	 options.multiple = false; 
  	 	   	 document.getElementById("results").innerHTML="Searching..."; 
  	 	   	 navigator.contacts.find(fields, contactSuccess, contactError, options); 
  	 	   	 } 
