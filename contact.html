@@ -43,6 +43,7 @@
  	 	   	 		 }
  	 	   	 		 document.getElementById("results").innerHTML=s;
  	 	   	 		 //showMessage();
+<<<<<<< HEAD
  	 	   	 		 //document.getElementById("name").value = "";
  	 	   	 		 	window.localStorage.setItem("myContact", result);
  	 	   	 			window.location = "edit_contact.html";
@@ -50,6 +51,40 @@
  	 	   	 		 }
  	 	   	 	} 
  	 	   	 	 	 	   	 	
+=======
+ 	 	   	 		 var answer = confrim("edit contact ?")
+ 	 	   	 		 if(answer)
+ 	 	   	 		 {
+ 	 	   	 		 	alert("success")
+ 	 	   	 		 }
+ 	 	   	 		 else{
+ 	 	   	 		 	navigator.app.exitApp();
+ 	 	   	 		 }
+ 	 	   	 		 //document.getElementById("name").value = "";
+ 	 	   	 		 }
+ 	 	   	 	} 
+ 	 	   	 	
+ 	 	   	 function showMessage(){
+ 	 	   	 		navigator.notification.confirm(
+ 	 	   	 			'Would you like to edit contact info', 
+ 	 	   	 			onMessage,
+ 	 	   	 			'edit contact',
+ 	 	   	 			['Yes','No']
+ 	 	   	 		);
+ 	 	   	 	}
+ 	 	   	 	
+ 	 	   	 	function onMessage(button){
+ 	 	   	 		if(button==0 || buttonIndex==2){
+ 	 	   	 		//If no search new contact
+ 	 	   	 		window.location = "contact.html";
+ 	 	   	 		}
+ 	 	   	 		else{
+ 	 	   	 			window.localStorage.setItem("myContact", result);
+ 	 	   	 			window.location = "edit_contact.html";
+ 	 	   	 		}
+ 	 	   	 	}
+ 	 	   	 	
+>>>>>>> origin/master
  	 	   	 	// Show a custom confirmation dialog
  	 	   	 	function showConfirm(){
  	 	   	 		navigator.notification.confirm(
@@ -81,4 +116,5 @@
  	 	 		</form>
  	 	 </body> 
 </html>
+
 
