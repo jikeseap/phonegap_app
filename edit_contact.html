@@ -38,6 +38,7 @@
 			contact.phoneNumbers = phoneNums;
 			contact.save(onUpdateSuccess, onUpdateError);
 		}
+		}
 		
 		function onUpdateSuccess (contact){
 			alert("Contact successfully updated");
@@ -46,7 +47,7 @@
 		function onUpdateError(contactError){
 			alert("Error in creating updating contact" + contactError.code);
 		}
-		}
+		
 
 	</script>
 	</head>
