@@ -8,9 +8,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
     </head>
     <script>
-    document.addEventListener("deviceready", onDeviceReady, false);
-    
-    function onDeviceReady(){
+      function exitApp(){
     	alert("Σας ευχαριστώ που δοκιμάσατε την εφαρμογή μου");
     	navigator.app.exitApp(); 
     }
@@ -24,7 +22,7 @@
     <button id="startScan">Start Scan</button>
     <br>
     <br>
-    <input type="button" value="Exit" id="exit" onclick="onDeviceReady()()"/>
+    <input type="button" value="Exit" id="exit" onclick="exitApp()"/>
     </p>
 
     <div id="results"></div>
